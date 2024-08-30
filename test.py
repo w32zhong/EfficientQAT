@@ -8,6 +8,7 @@ model = GPTQModel.from_quantized(model_path)
 
 print(tokenizer.decode(
     model.generate(
-        **tokenizer("Model quantization is", return_tensors="pt").to(model.device)
+        **tokenizer("Model quantization is", return_tensors="pt").to(model.device),
+        max_new_tokens=256
     )[0]
 ))

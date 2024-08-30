@@ -37,6 +37,7 @@ conda install conda-forge::gxx_linux-64=11
 conda install cuda -c nvidia/label/cuda-12.1
 export CUDA_HOME=$CONDA_PREFIX
 pip install gptqmodel --no-build-isolation
+pip install bitblas
 ```
 
 ## Model Zoo

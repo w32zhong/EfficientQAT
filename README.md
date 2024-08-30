@@ -31,6 +31,7 @@ conda create -n efficientqat python==3.11
 conda activate efficientqat
 
 pip install -r requirements.txt
+pip install gptqmodel --no-build-isolation
 ```
 
 ## Model Zoo

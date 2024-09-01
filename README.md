@@ -124,6 +124,12 @@ Specifically, the `--learning_rate` is `2e-5` for 2-bit and `1e-5` for 3-/4-bits
 
 
 ## Inference
+On 2x RTX 3060s:
+```
+native bf16: 20 tok/sec
+Trition 2 bits: 3.64 tok/sec
+BitBLAS 2 bits: 14.2 tok/sec
+```
 
 1. Download the pre-quantized EfficientQAT models from Huggingface
 ```

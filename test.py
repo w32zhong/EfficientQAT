@@ -53,7 +53,7 @@ model_path = "ChenMnZ/Llama-2-7b-EfficientQAT-w2g64-BitBLAS"
 
 tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=True)
 model = GPTQModel.from_quantized(model_path)
-model.to('cuda:0')
+model.to('cuda')
 streamer = TextStreamer(tokenizer)
 
 start = time.time()

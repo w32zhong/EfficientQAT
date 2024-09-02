@@ -35,7 +35,14 @@ model, tokenizer = load_quantized_model(os.path.expanduser(local_dir), 2, 64)
 streamer = TextStreamer(tokenizer)
 model.to('cuda:1')
 import myhook
-collect = myhook.add(model, ['model.layers.6.mlp.down_proj'])
+collect = myhook.add(model, [
+	'model.layers.6.mlp.gate_proj',
+	'model.layers.6.mlp.down_proj',
+	'model.layers.8.mlp.gate_proj',
+	'model.layers.8.mlp.down_proj',
+	'model.layers.9.self_attn.q_proj',
+	'model.layers.9.self_attn.o_proj',
+])
 
 start = time.time()
 output = model.generate(

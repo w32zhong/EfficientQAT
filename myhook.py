@@ -30,8 +30,8 @@ def save(collect):
         pickle.dump(collect, fh)
 
 
-def analyze(filename='collect.pkl',
-    channels=range(1170, 1180), timesteps=slice(-1), io=1, do_act=False, act_base=0.2):
+def analyze(filename='collect.pkl', width=3, height=2,
+    channels=range(1170, 1180), timesteps=slice(50), io=1, do_act=False, act_base=0.):
 
     with open('collect.pkl', 'rb') as fh:
         collect = pickle.load(fh)
@@ -39,19 +39,20 @@ def analyze(filename='collect.pkl',
     import matplotlib.pyplot as plt
     import numpy as np
     fig = plt.figure()
-    ax = fig.add_subplot(projection='3d')
     act_fn = lambda x: max(x, act_base) - act_base if do_act else x
-    for key, values in collect.items():
+    subgraphs = len(collect.keys())
+    for i, (key, values) in enumerate(collect.items()):
+        ax = fig.add_subplot(height, width, i + 1, projection='3d')
         values = values[timesteps]
         for chann in channels:
             ys = [act_fn(time_values[io][chann]) for time_values in values]
             xs = np.arange(len(ys))
             ax.bar(xs, ys, zs=chann, zdir='y', alpha=0.8)
         ax.set_title(f'{key} ({"input" if io == 0 else "output"})')
-    ax.set_xlabel('time')
-    ax.set_ylabel('channel')
-    ax.set_zlabel('activation')
-    ax.set_yticks(list(channels))
+        ax.set_xlabel('time')
+        ax.set_ylabel('channel')
+        ax.set_zlabel('activation')
+        ax.set_yticks(list(channels))
     plt.show()
 
 if __name__ == '__main__':
